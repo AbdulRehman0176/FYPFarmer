@@ -90,10 +90,10 @@ function App() {
     <>
     <Routes>
      <Route path='/login' element={<Login />} />
-     <Route path='/machinery' element={<Machinery />} /> 
+     <Route path='/' element={<Machinery />} /> 
      <Route path='/signup' element={<SignUp />} />
      <Route path='/profile' element={<ProfilePage />} />
-     <Route path='/' element={<MyPost/>} />
+     <Route path='/mypost' element={<MyPost/>} />
     </Routes>
     {/* <GovtScheme/> */}
     {/* <ProfilePage/> */}

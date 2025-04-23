@@ -17,6 +17,8 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(express.json());  // Allows JSON data
 app.use(cors());          // Enables CORS for frontend
+app.use("/uploads", express.static("uploads"));
+
 
 // API Routes
 app.use("/api/users", userRoutes);  
