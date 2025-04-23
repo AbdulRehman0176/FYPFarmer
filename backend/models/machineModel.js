@@ -7,13 +7,22 @@ export const getAllMachines = async () => {
 };
 
 // ✅ Create a new machine
-export const createMachine = async (name, price, city, user_id) => {
+// export const createMachine = async (name, price, city, user_id) => {
+//   const result = await db.query(
+//     "INSERT INTO machines (name, price, city, user_id) VALUES ($1, $2, $3, $4) RETURNING *",
+//     [name, price, city, user_id]
+//   );
+//   return result.rows[0];
+// };
+
+export const createMachine = async (name, price, city, user_id, image_url, status = "available") => {
   const result = await db.query(
-    "INSERT INTO machines (name, price, city, user_id) VALUES ($1, $2, $3, $4) RETURNING *",
-    [name, price, city, user_id]
+    "INSERT INTO machines (name, price, city, user_id, image_url, status) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
+    [name, price, city, user_id, image_url, status]
   );
   return result.rows[0];
 };
+
 
 // ✅ Update a machine by ID
 export const updateMachineById = async (id, name, price, city) => {
