@@ -72,7 +72,7 @@ function SideMenu() {
         { label: "Machine", key: "/machine", icon: <DashboardFilled /> },
         { label: "GovtScheme", key: "/govtscheme", icon: <DashboardFilled /> },
         { label: "Land", key: "/land", icon: <DashboardFilled /> },
-        { label: "Seeds Sale", key: "/seeds-buy", icon: <DashboardFilled /> },
+        { label: "Seeds Buy", key: "/seeds-buy", icon: <DashboardFilled /> },
         {
           label: "Signout",
           key: "/signout",
