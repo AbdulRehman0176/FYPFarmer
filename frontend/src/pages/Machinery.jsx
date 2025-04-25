@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import api from "../api";
 import { Link } from "react-router-dom";
 
-const Machinery = () => {
+const Machinery = ({deleteEnabled}) => {
   const [showForm, setShowForm] = useState(false);
   const [machineryList, setMachineryList] = useState([]);
   const [formData, setFormData] = useState({
@@ -161,6 +161,9 @@ const Machinery = () => {
             <p className="text-sm text-gray-600">{item.status}</p>
             <p className="text-sm">📍 {item.city}</p>
             <p className="text-sm font-semibold">💰 Rent: Rs. {item.price}</p>
+            {
+              deleteEnabled  && <Link to={"/delete"}>Delete</Link>
+            }
           </div>
         ))}
       </div>
