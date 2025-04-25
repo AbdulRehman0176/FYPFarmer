@@ -21,6 +21,8 @@ import Machinery from "./pages/Machinery";
 import MyPost from "./pages/MyPost";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { Header } from "antd/es/layout/layout";
+import Land from "./pages/Land";
+import SeedsSale from "./pages/SeedsSale";
 
 
 
@@ -68,8 +70,8 @@ function SideMenu() {
         { label: "Home", key: "/", icon: <DashboardFilled /> },
         { label: "Machine", key: "/machine", icon: <DashboardFilled /> },
         { label: "GovtScheme", key: "/govtscheme", icon: <DashboardFilled /> },
-        { label: "Seeds", key: "/seeds", icon: <DashboardFilled /> },
         { label: "Land", key: "/land", icon: <DashboardFilled /> },
+        { label: "Seeds Sale", key: "/seeds-sale", icon: <DashboardFilled /> },
         {
           label: "Signout",
           key: "/signout",
@@ -94,8 +96,8 @@ function AllContent() {
           element={<Machinery deleteEnabled={true} />}
         ></Route>
         <Route path="/govtscheme" element={<GovtScheme />}></Route>
-        <Route path="/seeds" element={<div>Seeds</div>}></Route>
-        <Route path="/land" element={<div>Land</div>}></Route>
+        <Route path="/land" element={<Land/>}></Route>
+        <Route path="/seeds-sale" element={<SeedsSale/>}></Route>
       </Routes>
     </div>
   );
