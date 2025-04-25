@@ -64,7 +64,7 @@ const GovtScheme = () => {
       </h2>
 
       {/* Loop through all schemes */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 w-full px-55">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 w-full px-40">
         {schemes.map((scheme) => (
           <div
             key={scheme.id}
