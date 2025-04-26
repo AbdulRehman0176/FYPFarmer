@@ -11,7 +11,7 @@ function ContactUs() {
         Main Center Div
       </div> */}
       <div className=" mx-auto mt-10   bg-white  shadow-lg hover:shadow-2xl transition-shadow duration-300">
-      <h2 className="text-2xl font-bold text-center text-gray-800 bg-green-500 text-white p-2">Get In Touch With Us Now!</h2>
+      <h2 className="text-2xl font-bold text-center  bg-green-500 text-white p-2">Get In Touch With Us Now!</h2>
      <div className='grid grid-cols-2 text-center '>
         <div className='p-12 border-b-1 border-r-1'>
             <p><CallIcon sx={{ fontSize: 40 }}/></p>
