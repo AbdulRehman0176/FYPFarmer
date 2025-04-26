@@ -1,13 +1,5 @@
-import React, { useState } from "react";
-
-// Dummy API call placeholder
-const api = {
-  addSeeds: async (data) => {
-    // Yeh backend developer POST API yahan integrate karega
-    console.log("Sending to backend:", data);
-    return { success: true, id: Date.now(), ...data };
-  },
-};
+import React, { useState, useEffect } from "react";
+import api from "../api"; // ✅ Axios instance with baseURL
 
 const SeedsBuy = () => {
   const [showForm, setShowForm] = useState(false);
@@ -15,34 +7,67 @@ const SeedsBuy = () => {
     name: "",
     quantity: "",
     city: "",
-    mobile: "",
   });
+
   const [posts, setPosts] = useState([]);
 
+  // ✅ Fetch all seeds with type 'buy'
+  useEffect(() => {
+    api
+      .get("/seeds")
+      .then((res) => {
+        const onlyBuySeeds = res.data.filter((seed) => seed.type === "buy");
+        setPosts(onlyBuySeeds);
+      })
+      .catch((err) => console.error("Error fetching seeds:", err));
+  }, []);
+
+  // ✅ Handle form input change
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    if (name === "quantity" && !/^\d*$/.test(value)) return;
+
+    setFormData({ ...formData, [name]: value });
   };
 
+  // ✅ Submit form to backend
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await api.addSeeds(formData);
-    if (response.success) {
-      setPosts([...posts, response]);
-      setFormData({ name: "", quantity: "", city: "", mobile: "" });
+
+    try {
+      const token = localStorage.getItem("token");
+
+      const payload = {
+        ...formData,
+        type: "buy", // ✅ required by backend
+      };
+
+      const res = await api.post("/seeds", payload, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setPosts([...posts, res.data.seed]);
+      setFormData({ name: "", quantity: "", city: "" });
       setShowForm(false);
+    } catch (err) {
+      console.error("Error submitting seed:", err);
+      alert("Failed to submit. Please try again.");
     }
   };
 
   return (
     <div className="p-4 max-w-4xl mx-auto">
-    
       <button
         onClick={() => setShowForm(true)}
-        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 "
+        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
       >
         Add Seeds
       </button>
 
+      {/* 🔲 Form */}
       {showForm && (
         <form
           onSubmit={handleSubmit}
@@ -60,7 +85,7 @@ const SeedsBuy = () => {
           <input
             type="text"
             name="quantity"
-            placeholder="Quantity"
+            placeholder="Quantity (kg)"
             value={formData.quantity}
             onChange={handleChange}
             required
@@ -71,15 +96,6 @@ const SeedsBuy = () => {
             name="city"
             placeholder="City"
             value={formData.city}
-            onChange={handleChange}
-            required
-            className="w-full border rounded px-3 py-2"
-          />
-          <input
-            type="text"
-            name="mobile"
-            placeholder="Mobile Number"
-            value={formData.mobile}
             onChange={handleChange}
             required
             className="w-full border rounded px-3 py-2"
@@ -103,16 +119,21 @@ const SeedsBuy = () => {
         </form>
       )}
 
+      {/* 🟢 Posts Display */}
       <div className="mt-6 space-y-4">
         {posts.map((post, index) => (
           <div
             key={index}
             className="bg-white rounded-lg shadow-md p-4 border border-gray-200"
           >
-            <h2 className="text-xl font-semibold text-green-700">{post.name}</h2>
+            <h2 className="text-xl font-semibold text-green-700">
+              {post.name}
+            </h2>
             <p className="text-sm">Quantity: {post.quantity}</p>
             <p className="text-sm">City: {post.city}</p>
-            <p className="text-sm">Mobile: {post.mobile}</p>
+            <p className="text-sm text-gray-500">
+              Posted on: {new Date(post.created_at).toLocaleDateString()}
+            </p>
           </div>
         ))}
       </div>

@@ -73,6 +73,7 @@ function SideMenu() {
         { label: "GovtScheme", key: "/govtscheme", icon: <DashboardFilled /> },
         { label: "Land", key: "/land", icon: <DashboardFilled /> },
         { label: "Seeds Buy", key: "/seeds-buy", icon: <DashboardFilled /> },
+        { label: "Seeds Sale", key: "/seeds-sale", icon: <DashboardFilled /> },
         {
           label: "Signout",
           key: "/signout",
@@ -99,6 +100,7 @@ function AllContent() {
         <Route path="/govtscheme" element={<GovtScheme />}></Route>
         <Route path="/land" element={<Land/>}></Route>
         <Route path="/seeds-buy" element={<SeedsBuy/>}></Route>
+        <Route path="/seeds-sale" element={<SeedsSale />}></Route> 
       </Routes>
     </div>
   );

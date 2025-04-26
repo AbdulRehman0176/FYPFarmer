@@ -1,5 +1,6 @@
 import { getAllLands, createLand, updateLandById, deleteLandById } from "../models/landModel.js";
 
+// Get all lands
 export const getLands = async (req, res) => {
   try {
     const lands = await getAllLands();
@@ -10,6 +11,7 @@ export const getLands = async (req, res) => {
   }
 };
 
+// Add new land
 export const addLand = async (req, res) => {
   const { location, area, price, city } = req.body;
 
@@ -18,8 +20,7 @@ export const addLand = async (req, res) => {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
-    const newLand = await createLand(location, area, price, city, req.user.userId);
-
+    const newLand = await createLand(req.user.userId, location, area, price, city);
     res.status(201).json({ message: "Land added successfully", land: newLand });
   } catch (error) {
     console.error("Error adding land:", error);
@@ -27,6 +28,7 @@ export const addLand = async (req, res) => {
   }
 };
 
+// Update existing land
 export const updateLand = async (req, res) => {
   const { id } = req.params;
   const { location, area, price, city } = req.body;
@@ -45,6 +47,7 @@ export const updateLand = async (req, res) => {
   }
 };
 
+// Delete a land
 export const deleteLand = async (req, res) => {
   const { id } = req.params;
 

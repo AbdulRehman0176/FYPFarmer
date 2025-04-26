@@ -54,9 +54,11 @@ CREATE TABLE IF NOT EXISTS seeds (
     type VARCHAR(10) CHECK (type IN ('buy', 'sell')) NOT NULL,
     quantity INT NOT NULL,
     city VARCHAR(100) NOT NULL,
-    status VARCHAR(20) CHECK (status IN ('available', 'sold')) DEFAULT 'available',  -- Track availability
+    status VARCHAR(20) CHECK (status IN ('available', 'sold')) DEFAULT 'available',
+    image_url TEXT, -- ✅ NEW: optional for sellers
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
 
 -- Mandi Rates Table
 CREATE TABLE IF NOT EXISTS mandi_rates (

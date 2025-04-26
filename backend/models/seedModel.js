@@ -7,10 +7,10 @@ export const getAllSeeds = async () => {
 };
 
 // ✅ Create a new seed
-export const createSeed = async (name, type, quantity, city, user_id) => {
+export const createSeed = async (name, type, quantity, city, user_id, image_url = null) => {
   const result = await db.query(
-    "INSERT INTO seeds (name, type, quantity, city, user_id) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-    [name, type, quantity, city, user_id]
+    "INSERT INTO seeds (name, type, quantity, city, user_id, image_url) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
+    [name, type, quantity, city, user_id, image_url]
   );
   return result.rows[0];
 };

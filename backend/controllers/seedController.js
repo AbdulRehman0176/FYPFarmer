@@ -1,4 +1,5 @@
 import { getAllSeeds, createSeed, updateSeedById, deleteSeedById } from "../models/seedModel.js";
+import path from "path";
 
 export const getSeeds = async (req, res) => {
   try {
@@ -14,11 +15,27 @@ export const addSeed = async (req, res) => {
   const { name, type, quantity, city } = req.body;
 
   try {
+    // 🔍 Validate required fields
     if (!name || !type || !quantity || !city) {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
-    const newSeed = await createSeed(name, type, quantity, city, req.user.userId);
+    // ✅ Validate type
+    if (type !== "buy" && type !== "sell") {
+      return res.status(400).json({ message: "Invalid seed type" });
+    }
+
+    // ✅ Handle optional image (required only for 'sell')
+    let image_url = null;
+    if (type === "sell") {
+      if (!req.file) {
+        return res.status(400).json({ message: "Image is required for selling seeds" });
+      }
+      image_url = `/uploads/${req.file.filename}`; // 🌱 Save relative image path
+    }
+
+    // ✅ Call model to insert seed
+    const newSeed = await createSeed(name, type, quantity, city, req.user.userId, image_url);
 
     res.status(201).json({ message: "Seed added successfully", seed: newSeed });
   } catch (error) {
