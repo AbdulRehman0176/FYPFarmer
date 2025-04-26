@@ -213,6 +213,7 @@ const Land = () => {
                 <strong>👤 Posted by:</strong> {land.owner_name} ({land.email})
               </p>
             )}
+            
           </div>
         ))}
       </div>

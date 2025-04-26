@@ -23,6 +23,8 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import Land from "./pages/Land";
 import SeedsSale from "./pages/SeedsSale";
 import SeedsBuy from "./pages/SeedsBuy";
+import About from "./pages/About";
+import ContactUs from "./pages/ContactUs";
 
 
 
@@ -89,21 +91,16 @@ function SideMenu() {
       style={{ padding: "20px", width: 250}}
      
       items={[
-// <<<<<<< HEAD
-        { label: "Home", key: "/", icon: <DashboardFilled /> },
-        { label: "Machine", key: "/machine", icon: <DashboardFilled /> },
-        { label: "GovtScheme", key: "/govtscheme", icon: <DashboardFilled /> },
-        { label: "Land", key: "/land", icon: <DashboardFilled /> },
-        { label: "Seeds Buy", key: "/seeds-buy", icon: <DashboardFilled /> },
-        { label: "Seeds Sale", key: "/seeds-sale", icon: <DashboardFilled /> },
-// =======
         
         { label: "Home", key: "/", icon: <HomeOutlined />  },
         { label: "Machine", key: "/machine", icon: <RocketOutlined /> },
         { label: "GovtScheme", key: "/govtscheme", icon: <AppstoreAddOutlined /> },
         { label: "Land", key: "/land", icon: <HeatMapOutlined /> },
         { label: "Seeds Buy", key: "/seeds-buy", icon: <ShoppingCartOutlined/> },
-// >>>>>>> 1dd8c5c408d7ac6de5161b5981863637b108462c
+        { label: "Seeds Sale", key: "/seeds-sale", icon: <ShoppingCartOutlined/> },
+        { label: "About", key: "/about", icon: <ShoppingCartOutlined/> },
+        { label: "My Post", key: "/myPost", icon: <ShoppingCartOutlined/> },
+        { label: "Contact US", key: "/contactUs", icon: <ShoppingCartOutlined/> },
         {
           label: "Signout",
           key: "/signout",
@@ -131,9 +128,12 @@ function AllContent() {
           element={<Machinery deleteEnabled={true} />}
         ></Route>
         <Route path="/govtscheme" element={<GovtScheme />}></Route>
-        <Route path="/land" element={<Land/>}></Route>
+        <Route path="/land" element={<Land deleteEnabled={false}/>}></Route>
         <Route path="/seeds-buy" element={<SeedsBuy/>}></Route>
-        <Route path="/seeds-sale" element={<SeedsSale />}></Route> 
+        <Route path="/seeds-sale" element={<SeedsSale/>}></Route>
+        <Route path="/about" element={<About />}></Route>
+        <Route path="/myPost" element={<MyPost/>}></Route>
+        <Route path="/contactUs" element={<ContactUs/>}></Route>
       </Routes>
     </div>
   );
