@@ -142,7 +142,7 @@ const SeedsSale = () => {
             key={index}
             className="bg-white border rounded-lg shadow-md p-4"
           >
-            {console.log(`http://localhost:5000${seed.image_url}`)};
+            {console.log(`http://localhost:5000${seed.image_url}`)}
             {seed.image_url && (
               <img
               src={`http://localhost:5000${seed.image_url}`}  // ✅ prepend backend URL

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import api from "../api"; // ✅ Axios instance with baseURL
 
 const SeedsBuy = () => {
+  const [cityFilter, setCityFilter] = useState("");
+
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -60,12 +62,29 @@ const SeedsBuy = () => {
 
   return (
     <div className="p-4 max-w-4xl mx-auto">
-      <button
-        onClick={() => setShowForm(true)}
-        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-      >
-        Add Seeds
-      </button>
+      <div className="mt-4 flex items-center justify-between space-x-3">
+        <div>
+          <input
+            type="text"
+            placeholder="Filter by City & Seeds Name"
+            value={cityFilter}
+            onChange={(e) => setCityFilter(e.target.value)}
+            className="border rounded px-3 py-2 w-60"
+          />
+          <button
+            onClick={() => setCityFilter("")}
+            className="bg-gray-300 px-3 ml-2 py-2 rounded hover:bg-gray-400"
+          >
+            Clear
+          </button>
+        </div>
+        <button
+          onClick={() => setShowForm(true)}
+          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+        >
+          Add Seeds
+        </button>
+      </div>
 
       {/* 🔲 Form */}
       {showForm && (
@@ -120,22 +139,36 @@ const SeedsBuy = () => {
       )}
 
       {/* 🟢 Posts Display */}
-      <div className="mt-6 space-y-4">
-        {posts.map((post, index) => (
-          <div
-            key={index}
-            className="bg-white rounded-lg shadow-md p-4 border border-gray-200"
-          >
-            <h2 className="text-xl font-semibold text-green-700">
-              {post.name}
-            </h2>
-            <p className="text-sm">Quantity: {post.quantity}</p>
-            <p className="text-sm">City: {post.city}</p>
-            <p className="text-sm text-gray-500">
-              Posted on: {new Date(post.created_at).toLocaleDateString()}
-            </p>
-          </div>
-        ))}
+      <div className="mt-6 space-y-6">
+      {posts
+    .filter((post) => {
+      const filterTerm = cityFilter.toLowerCase(); // User ka input lowercase mein
+      const cityMatch = post.city.toLowerCase().includes(filterTerm);
+      const seedMatch = post.name.toLowerCase().includes(filterTerm);
+      return cityMatch || seedMatch; // Agar city ya seed name match ho, to filter ho jayega
+    })
+          .map((post, index) => (
+            <div
+              key={index}
+              className="bg-white rounded-2xl shadow-lg p-6 border border-gray-200 hover:shadow-2xl transition-shadow duration-300"
+            >
+              <h2 className="text-2xl font-bold text-green-800 mb-2">
+                {post.name}
+              </h2>
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center text-gray-700">
+                <p className="text-base">
+                  <span className="font-semibold">Quantity:</span>{" "}
+                  {post.quantity}
+                </p>
+                <p className="text-base">
+                  <span className="font-semibold">City:</span> {post.city}
+                </p>
+              </div>
+              <p className="text-sm text-gray-400 mt-4">
+                Posted on: {new Date(post.created_at).toLocaleDateString()}
+              </p>
+            </div>
+          ))}
       </div>
     </div>
   );

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import api from "../api";
 
 const Land = () => {
+  const [cityFilter, setCityFilter] = useState(""); // City filter state
+
   const [showForm, setShowForm] = useState(false);
   const [lands, setLands] = useState([]);
   const [formData, setFormData] = useState({
@@ -59,17 +61,40 @@ const Land = () => {
         minHeight: "100vh",
       }}
     >
-      <h2 style={{ textAlign: "center", marginBottom: "20px" }}>
+      {/* <h2 style={{ textAlign: "center", marginBottom: "20px" }}>
         🌾 Land Listings
-      </h2>
+      </h2> */}
 
-      <div style={{ textAlign: "center", marginBottom: "30px" }}>
+      <div style={{ textAlign: "center", marginBottom: "30px", display:"flex" , justifyContent:'space-between', marginLeft:'40px', marginRight:"40px"}}>
+        <div style={{ textAlign: "center", marginBottom: "30px" }}>
+          <input
+            type="text"
+            placeholder="Filter by City"
+            value={cityFilter}
+            onChange={(e) => setCityFilter(e.target.value)}
+            style={{
+              padding: "10px 20px",
+              fontSize: "16px",
+              width: "250px",
+              border: "1px solid #ccc",
+              borderRadius: "8px",
+              marginBottom: "20px",
+            }}
+          />
+          <button
+            onClick={() => setCityFilter("")}
+            className="bg-gray-300 px-3 ml-2 py-2 rounded hover:bg-gray-400"
+          >
+            Clear
+          </button>
+        </div>
+<div>
         <button
           onClick={() => setShowForm(true)}
           style={{
             padding: "12px 25px",
             fontSize: "16px",
-            backgroundColor: "#007bff",
+            backgroundColor: "#28a745",
             color: "white",
             border: "none",
             borderRadius: "8px",
@@ -78,6 +103,7 @@ const Land = () => {
         >
           ➕ Add Land
         </button>
+        </div>
       </div>
 
       {/* Popup Form */}
@@ -176,46 +202,52 @@ const Land = () => {
           justifyContent: "center",
         }}
       >
-        {lands.map((land, index) => (
-          <div
-            key={index}
-            style={{
-              width: "320px",
-              background: "#fff",
-              borderRadius: "15px",
-              padding: "20px",
-              boxShadow: "0 8px 20px rgba(0,0,0,0.1)",
-              position: "relative",
-            }}
-          >
+        {lands
+          .filter((land) => {
+            // City filter logic
+            return land.city.toLowerCase().includes(cityFilter.toLowerCase());
+          })
+          .map((land, index) => (
             <div
+              key={index}
               style={{
-                background: "#f0f0f0",
-                borderRadius: "10px",
-                padding: "10px",
-                marginBottom: "10px",
-                textAlign: "center",
+                width: "320px",
+                background: "#fff",
+                borderRadius: "15px",
+                padding: "20px",
+                boxShadow: "0 8px 20px rgba(0,0,0,0.1)",
+                position: "relative",
               }}
             >
-              <h4 style={{ margin: "0", fontSize: "18px" }}>📍 {land.city}</h4>
-            </div>
-            <p>
-              <strong>🏠 Area:</strong> {land.area} sq. ft
-            </p>
-            <p>
-              <strong>💰 Price:</strong> {land.price}
-            </p>
-            <p>
-              <strong>📌 Location:</strong> {land.location}
-            </p>
-            {land.owner_name && (
+              <div
+                style={{
+                  background: "#f0f0f0",
+                  borderRadius: "10px",
+                  padding: "10px",
+                  marginBottom: "10px",
+                  textAlign: "center",
+                }}
+              >
+                <h4 style={{ margin: "0", fontSize: "18px" }}>
+                  📍 {land.city}
+                </h4>
+              </div>
               <p>
-                <strong>👤 Posted by:</strong> {land.owner_name} ({land.email})
+                <strong>🏠 Area:</strong> {land.area} sq. ft
               </p>
-            )}
-            
-          </div>
-        ))}
+              <p>
+                <strong>💰 Price:</strong> {land.price}
+              </p>
+              <p>
+                <strong>📌 Location:</strong> {land.location}
+              </p>
+              {land.owner_name && (
+                <p>
+                  <strong>👤 Posted by:</strong> {land.owner_name}
+                </p>
+              )}
+            </div>
+          ))}
       </div>
     </div>
   );

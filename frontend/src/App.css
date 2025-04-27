@@ -1,1 +1,16 @@
 @import "tailwindcss";
+.custom-menu .ant-menu-item:hover {
+    background-color: #90d190 !important; /* Hover color */
+    color: white !important; /* Text color */
+  }
+  
+  .custom-menu .ant-menu-item-active {
+    background-color: #5bd75b !important; /* Active click color */
+    color: white !important;
+  }
+  
+  .custom-menu .ant-menu-item-selected {
+    background-color: #5bd75b !important; /* Selected color */
+    color: white !important;
+  }
+  
