@@ -140,7 +140,7 @@ function SideMenu() {
             { label: "About", key: "/about", icon: <ShoppingCartOutlined /> },
             {
               label: "My Post",
-              key: "/myPost",
+              key: "/myPosts",
               icon: <ShoppingCartOutlined />,
             },
             {
@@ -172,15 +172,19 @@ function AllContent() {
           element={<Machinery deleteEnabled={false} />}
         ></Route>
         <Route
-          path="/mypost"
-          element={<Machinery deleteEnabled={true} />}
+          path="/myposts"
+          element={<MyPost deleteEnabled={true} />}
         ></Route>
+         {/* <Route
+          path="/mypost"
+          element={<Land deleteEnabled={true} />}
+        ></Route> */}
         <Route path="/govtscheme" element={<GovtScheme />}></Route>
         <Route path="/land" element={<Land deleteEnabled={false} />}></Route>
         <Route path="/seeds-buy" element={<SeedsBuy />}></Route>
         <Route path="/seeds-sale" element={<SeedsSale />}></Route>
         <Route path="/about" element={<About />}></Route>
-        <Route path="/myPost" element={<MyPost />}></Route>
+        {/* <Route path="/myPost" element={<MyPost />}></Route> */}
         <Route path="/contactUs" element={<ContactUs />}></Route>
       </Routes>
     </div>

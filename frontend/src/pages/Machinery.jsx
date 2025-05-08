@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import api from "../api";
 import { Link } from "react-router-dom";
-import { Button, Flex } from 'antd';
+import { Button, Flex } from "antd";
+import AllMachines from "../component/AllMachines";
 
 const Machinery = ({ deleteEnabled }) => {
+  const [shouldReload, setshouldReload] = useState(false);
   const [showForm, setShowForm] = useState(false);
-  const [machineryList, setMachineryList] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
     status: "available",
@@ -16,15 +17,8 @@ const Machinery = ({ deleteEnabled }) => {
   const [editId, setEditId] = useState(null); // null means add mode
 
   useEffect(() => {
-    fetchMachines();
-  }, []);
-
-  const fetchMachines = () => {
-    api
-      .get("/machines")
-      .then((response) => setMachineryList(response.data))
-      .catch((error) => console.error("Error fetching machines:", error));
-  };
+    // fetchMachines();
+  }, [formData, shouldReload]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -77,10 +71,14 @@ const Machinery = ({ deleteEnabled }) => {
             Authorization: `Bearer ${token}`,
           },
         });
-        setMachineryList([...machineryList, response.data.machine]);
+        // setMachineryList([...machineryList, response.data.machine]);
       }
 
       resetForm();
+      setshouldReload(true);
+      setTimeout(() => {
+        window.location.reload();
+      },200);
     } catch (error) {
       console.error("Error submitting machine:", error);
       alert("Failed to submit machine.");
@@ -105,19 +103,20 @@ const Machinery = ({ deleteEnabled }) => {
     setShowForm(true);
   };
 
-  const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this machine?")) return;
-    try {
-      const token = localStorage.getItem("token");
-      await api.delete(`/machines/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setMachineryList((prev) => prev.filter((item) => item.id !== id));
-    } catch (error) {
-      console.error("Error deleting machine:", error);
-      alert("Failed to delete machine.");
-    }
-  };
+  // const handleDelete = async (id) => {
+  //   if (!window.confirm("Are you sure you want to delete this machine?"))
+  //     return;
+  //   try {
+  //     const token = localStorage.getItem("token");
+  //     await api.delete(`/machines/${id}`, {
+  //       headers: { Authorization: `Bearer ${token}` },
+  //     });
+  //     setMachineryList((prev) => prev.filter((item) => item.id !== id));
+  //   } catch (error) {
+  //     console.error("Error deleting machine:", error);
+  //     alert("Failed to delete machine.");
+  //   }
+  // };
 
   return (
     <div className="p-4 max-w-5xl mx-auto">
@@ -203,42 +202,7 @@ const Machinery = ({ deleteEnabled }) => {
       )}
 
       {/* Machinery Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-7 max-w-2xl mx-auto">
-        {machineryList.map((item) => (
-          <div key={item.id} className="bg-white shadow-md rounded-lg p-3">
-            <img
-              src={`http://localhost:5000${item.image_url}`}
-              alt={item.name}
-              className="aspect-video w-full object-cover rounded mb-2"
-            />
-            <h3 className="text-base font-bold">{item.name}</h3>
-            <p className="text-xs text-gray-600">{item.status}</p>
-            <p className="text-xs">📍 {item.city}</p>
-            <p className="text-sm font-semibold">💰 Rent: Rs. {item.price}</p>
-            <div className="flex justify-between items-center mt-2">
-             
-              {deleteEnabled && (
-                <div className="flex justify-between gap-3">
-                <Button 
-                type="primary" danger
-                  onClick={() => handleDelete(item.id)}
-                  
-                >
-                  Delete
-                </Button>
-
-                 <Button
-                 onClick={() => handleEdit(item)}
-                 className="text-blue-600 text-sm"
-               >
-                 Edit
-               </Button>
-               </div>
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
+      <AllMachines deleteEnabled={deleteEnabled}  shouldReload = {shouldReload}/>
     </div>
   );
 };

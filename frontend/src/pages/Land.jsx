@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import api from "../api";
+import { Button } from "antd";
+import AllLands from "../component/AllLands";
 
-const Land = () => {
+const Land = ({ deleteEnabled }) => {
   const [cityFilter, setCityFilter] = useState(""); // City filter state
 
   const [showForm, setShowForm] = useState(false);
-  const [lands, setLands] = useState([]);
+  const [shouldReload, setshouldReload] = useState(false);
+
   const [formData, setFormData] = useState({
     area: "",
     price: "",
@@ -15,11 +18,11 @@ const Land = () => {
 
   // Fetch all lands
   useEffect(() => {
-    api
-      .get("/lands")
-      .then((res) => setLands(res.data))
-      .catch((err) => console.error("Failed to fetch lands:", err));
-  }, []);
+    // api
+    //   .get("/lands")
+    //   .then((res) => setLands(res.data))
+    //   .catch((err) => console.error("Failed to fetch lands:", err));
+  }, [formData, cityFilter,shouldReload]);
 
   // Input handler
   const handleChange = (e) => {
@@ -44,9 +47,10 @@ const Land = () => {
         },
       });
 
-      setLands([...lands, res.data.land]);
+      // setLands([...lands, res.data.land]);
       setFormData({ area: "", price: "", city: "", location: "" });
       setShowForm(false);
+      setshouldReload(true);
     } catch (error) {
       console.error("Submission failed:", error);
       alert("Failed to submit land.");
@@ -65,7 +69,16 @@ const Land = () => {
         🌾 Land Listings
       </h2> */}
 
-      <div style={{ textAlign: "center", marginBottom: "30px", display:"flex" , justifyContent:'space-between', marginLeft:'40px', marginRight:"40px"}}>
+      <div
+        style={{
+          textAlign: "center",
+          marginBottom: "30px",
+          display: "flex",
+          justifyContent: "space-between",
+          marginLeft: "40px",
+          marginRight: "40px",
+        }}
+      >
         <div style={{ textAlign: "center", marginBottom: "30px" }}>
           <input
             type="text"
@@ -88,21 +101,21 @@ const Land = () => {
             Clear
           </button>
         </div>
-<div>
-        <button
-          onClick={() => setShowForm(true)}
-          style={{
-            padding: "12px 25px",
-            fontSize: "16px",
-            backgroundColor: "#28a745",
-            color: "white",
-            border: "none",
-            borderRadius: "8px",
-            cursor: "pointer",
-          }}
-        >
-          ➕ Add Land
-        </button>
+        <div>
+          <button
+            onClick={() => setShowForm(true)}
+            style={{
+              padding: "12px 25px",
+              fontSize: "16px",
+              backgroundColor: "#28a745",
+              color: "white",
+              border: "none",
+              borderRadius: "8px",
+              cursor: "pointer",
+            }}
+          >
+            ➕ Add Land
+          </button>
         </div>
       </div>
 
@@ -194,61 +207,7 @@ const Land = () => {
       )}
 
       {/* Show Lands */}
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "25px",
-          justifyContent: "center",
-        }}
-      >
-        {lands
-          .filter((land) => {
-            // City filter logic
-            return land.city.toLowerCase().includes(cityFilter.toLowerCase());
-          })
-          .map((land, index) => (
-            <div
-              key={index}
-              style={{
-                width: "320px",
-                background: "#fff",
-                borderRadius: "15px",
-                padding: "20px",
-                boxShadow: "0 8px 20px rgba(0,0,0,0.1)",
-                position: "relative",
-              }}
-            >
-              <div
-                style={{
-                  background: "#f0f0f0",
-                  borderRadius: "10px",
-                  padding: "10px",
-                  marginBottom: "10px",
-                  textAlign: "center",
-                }}
-              >
-                <h4 style={{ margin: "0", fontSize: "18px" }}>
-                  📍 {land.city}
-                </h4>
-              </div>
-              <p>
-                <strong>🏠 Area:</strong> {land.area} sq. ft
-              </p>
-              <p>
-                <strong>💰 Price:</strong> {land.price}
-              </p>
-              <p>
-                <strong>📌 Location:</strong> {land.location}
-              </p>
-              {land.owner_name && (
-                <p>
-                  <strong>👤 Posted by:</strong> {land.owner_name}
-                </p>
-              )}
-            </div>
-          ))}
-      </div>
+     <AllLands cityFilter = {cityFilter} shouldReload = {shouldReload}/>
     </div>
   );
 };

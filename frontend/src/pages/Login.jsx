@@ -59,10 +59,13 @@ const Login = () => {
         email: `${form.mobile}@yourapp.com`,  // same logic as Signup
         password: form.password
       });
+      console.log("response -> ",response);
+      
   
       setSuccess("Login successful!");
       setError("");
       localStorage.setItem("token", response.data.token);  // store JWT
+      localStorage.setItem("userId", response.data.userId);  // store JWT
       console.log("Trying navigate")
       nav("/")
   
