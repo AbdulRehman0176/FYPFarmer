@@ -3,9 +3,11 @@ import CallIcon from '@mui/icons-material/Call';
 import EmailIcon from '@mui/icons-material/Email';
 import AddLocationIcon from '@mui/icons-material/AddLocation';
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
+import UserLayout from '../component/UserLayout';
 function ContactUs() {
   return (
     <>
+    <UserLayout>
    <div className="flex items-center justify-center " style={{ height: "calc(85vh - 70px)" }}>
       {/* <div className="bg-blue-500 text-white p-8 rounded-xl text-2xl">
         Main Center Div
@@ -39,7 +41,7 @@ function ContactUs() {
     </div>
     </div>
  
-
+</UserLayout>
     </>
   )
 }

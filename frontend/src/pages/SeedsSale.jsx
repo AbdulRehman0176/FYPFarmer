@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import api from "../api";
+import UserLayout from "../component/UserLayout";
 
 const SeedsSale = () => {
   const [showForm, setShowForm] = useState(false);
@@ -69,6 +70,7 @@ const SeedsSale = () => {
   };
 
   return (
+    <UserLayout>
     <div className="p-4 max-w-4xl mx-auto">
       <button
         onClick={() => setShowForm(true)}
@@ -161,6 +163,7 @@ const SeedsSale = () => {
         ))}
       </div>
     </div>
+    </UserLayout>
   );
 };
 

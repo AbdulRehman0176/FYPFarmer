@@ -3,6 +3,8 @@ import api from "../api";
 import { Link } from "react-router-dom";
 import { Button, Flex } from "antd";
 import AllMachines from "../component/AllMachines";
+import UserLayout from "../component/UserLayout";
+
 
 const Machinery = ({ deleteEnabled }) => {
   const [shouldReload, setshouldReload] = useState(false);
@@ -119,6 +121,8 @@ const Machinery = ({ deleteEnabled }) => {
   // };
 
   return (
+    <>
+    <UserLayout>
     <div className="p-4 max-w-5xl mx-auto">
       {/* Top Buttons */}
       <div className="flex justify-center gap-x-2 mb-4">
@@ -128,12 +132,7 @@ const Machinery = ({ deleteEnabled }) => {
         >
           Add Machinery
         </button>
-        <Link
-          to="/mypost"
-          className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700"
-        >
-          My Post
-        </Link>
+       
       </div>
 
       {/* Popup Add/Edit Form */}
@@ -204,6 +203,8 @@ const Machinery = ({ deleteEnabled }) => {
       {/* Machinery Cards */}
       <AllMachines deleteEnabled={deleteEnabled}  shouldReload = {shouldReload}/>
     </div>
+    </UserLayout>
+    </>
   );
 };
 

@@ -11,7 +11,7 @@ function AllMachines({ deleteEnabled, shouldReload }) {
     api
       .get("/machines")
       .then((response) => {
-        console.log("Machines -> ", response.data);
+        // console.log("Machines -> ", response.data);
         
         setMachineryList(response.data);
       })
@@ -55,6 +55,8 @@ function AllMachines({ deleteEnabled, shouldReload }) {
           <p className="text-xs text-gray-600">{item.status}</p>
           <p className="text-xs">📍 {item.city}</p>
           <p className="text-sm font-semibold">💰 Rent: Rs. {item.price}</p>
+          
+          
           <div className="flex justify-between items-center mt-2">
             {deleteEnabled && item.user_id == userId && (
               <div className="flex justify-between gap-3">
