@@ -14,6 +14,7 @@ function AllLands({ deleteEnabled, cityFilter, shouldReload }) {
   }, [shouldReload]);
 
   return (
+    
     <div
       style={{
         display: "flex",
@@ -37,7 +38,7 @@ function AllLands({ deleteEnabled, cityFilter, shouldReload }) {
               borderRadius: "15px",
               padding: "20px",
               boxShadow: "0 8px 20px rgba(0,0,0,0.1)",
-              position: "relative",
+              position: "",
             }}
           >
             <div
@@ -62,8 +63,9 @@ function AllLands({ deleteEnabled, cityFilter, shouldReload }) {
             </p>
             {land.owner_name && (
               <p>
-                <strong>👤 Posted by:</strong> {land.owner_name}
+                <strong>👤 Posted by:</strong> {land.owner_name} {land.email}
               </p>
+              
             )}
             {deleteEnabled && (
               <div className="flex justify-between gap-3">

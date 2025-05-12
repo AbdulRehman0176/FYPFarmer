@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import api from "../api";
+import UserLayout from "../component/UserLayout";
+import AllSeeds from "../component/AllSeeds";
 
 const SeedsSale = () => {
   const [showForm, setShowForm] = useState(false);
@@ -12,16 +14,16 @@ const SeedsSale = () => {
   const [seeds, setSeeds] = useState([]);
 
   // 🔄 Fetch seeds of type 'sell'
-  useEffect(() => {
-    api
-      .get("/seeds")
-      .then((res) => {
-        const filtered = res.data.filter((item) => item.type === "sell");
-        // console.log(filtered);
-        setSeeds(filtered);
-      })
-      .catch((err) => console.error("Error fetching seeds:", err));
-  }, []);
+  // useEffect(() => {
+  //   api
+  //     .get("/seeds")
+  //     .then((res) => {
+  //       const filtered = res.data.filter((item) => item.type === "sell");
+  //       // console.log(filtered);
+  //       setSeeds(filtered);
+  //     })
+  //     .catch((err) => console.error("Error fetching seeds:", err));
+  // }, []);
 
   // 📦 Handle input
   const handleChange = (e) => {
@@ -69,6 +71,7 @@ const SeedsSale = () => {
   };
 
   return (
+    <UserLayout>
     <div className="p-4 max-w-4xl mx-auto">
       <button
         onClick={() => setShowForm(true)}
@@ -136,31 +139,9 @@ const SeedsSale = () => {
       )}
 
       {/* 🟢 Display Seeds */}
-      <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-        {seeds.map((seed, index) => (
-          <div
-            key={index}
-            className="bg-white border rounded-lg shadow-md p-4"
-          >
-            {console.log(`http://localhost:5000${seed.image_url}`)}
-            {seed.image_url && (
-              <img
-              src={`http://localhost:5000${seed.image_url}`}  // ✅ prepend backend URL
-              alt={seed.name}
-              className="h-40 w-full object-cover rounded mb-3"
-            />
-            
-            )}
-            <h2 className="text-xl font-semibold text-green-700">{seed.name}</h2>
-            <p className="text-sm">Quantity: {seed.quantity} kg</p>
-            <p className="text-sm">City: {seed.city}</p>
-            <p className="text-sm text-gray-500">
-              Posted on: {new Date(seed.created_at).toLocaleDateString()}
-            </p>
-          </div>
-        ))}
-      </div>
+      <AllSeeds/>
     </div>
+    </UserLayout>
   );
 };
 

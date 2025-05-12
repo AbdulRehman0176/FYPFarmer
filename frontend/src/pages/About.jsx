@@ -8,10 +8,12 @@ import img5 from "../assets/img5.png";
 import img6 from "../assets/img6.jpg";
 import { Button } from "antd";
 import { Link } from "react-router-dom";
+import UserLayout from "../component/UserLayout";
 function About() {
   const images = [img1, img2, img3, img4, img5, img6];
   return (
     <>
+    <UserLayout>
       <div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl w-full bg-white p-6 rounded-lg shadow-lg">
           {/* Right: Text */}
@@ -32,6 +34,7 @@ function About() {
                 color="green"
                 variant="outlined"
                 className="mt-5 !font-bold"
+                 style={{ position: "unset" }}
               >
                 Contact Us
               </Button>
@@ -102,6 +105,7 @@ function About() {
 </div>
 
       </div>
+      </UserLayout>
     </>
   );
 }

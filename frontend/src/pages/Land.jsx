@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import api from "../api";
 import { Button } from "antd";
 import AllLands from "../component/AllLands";
+import UserLayout from "../component/UserLayout";
 
 const Land = ({ deleteEnabled }) => {
   const [cityFilter, setCityFilter] = useState(""); // City filter state
@@ -58,6 +59,7 @@ const Land = ({ deleteEnabled }) => {
   };
 
   return (
+    <UserLayout>
     <div
       style={{
         padding: "30px",
@@ -209,6 +211,7 @@ const Land = ({ deleteEnabled }) => {
       {/* Show Lands */}
      <AllLands cityFilter = {cityFilter} shouldReload = {shouldReload}/>
     </div>
+    </UserLayout>
   );
 };
 

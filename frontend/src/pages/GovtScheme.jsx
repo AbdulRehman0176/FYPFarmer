@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import UserLayout from "../component/UserLayout";
 
 const GovtScheme = () => {
   const [schemes, setSchemes] = useState([]);
@@ -58,6 +59,7 @@ const GovtScheme = () => {
   };
 
   return (
+    <UserLayout>
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
       <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">
         Government Schemes
@@ -90,6 +92,7 @@ const GovtScheme = () => {
         ))}
       </div>
     </div>
+    </UserLayout>
   );
 };
 
