@@ -13,17 +13,17 @@ function AdminLayout({ children }) {
       icon: <i className="ri-dashboard-3-line mr-2"></i>,
     },
     {
-      to: "/usersList",
+      to: "/UserDetailAdmin",
       label: "User Details",
       icon: <i className="ri-dashboard-3-line mr-2"></i>,
     },
     {
-      to: "/machinesDetail",
+      to: "/machinelistAdmin",
       label: "Machines Detail",
       icon: <i className="ri-user-line mr-2"></i>,
     },
     {
-      to: "/landDetails",
+      to: "/landDetail",
       label: "Land Detail",
       icon: <i className="ri-shopping-cart-line mr-2"></i>,
     },
@@ -60,7 +60,7 @@ function AdminLayout({ children }) {
   return (
     <div>
       <aside
-        className=" bg-indigo-600  fixed top-0 left-0 h-full overflow-hidden"
+        className=" bg-[#456ebf]  fixed top-0 left-0 h-full overflow-hidden"
         style={{ width: size, transition: "0.5s" }}
       >
         <div

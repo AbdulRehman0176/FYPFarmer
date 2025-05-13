@@ -64,7 +64,7 @@ const Signup = () => {
     try {
       const response = await api.post("/users/register", {
         name: form.name,
-        email: `${form.mobile}@yourapp.com`,  // mobile as email workaround
+        email: `${form.mobile}`,  // mobile as email workaround
         password: form.password,
         role: "farmer",                      // default role, or let user choose
         city: "",                            // empty for now

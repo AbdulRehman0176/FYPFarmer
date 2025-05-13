@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { findUserByEmail, createUser } from "../models/userModel.js";
+import { findUserByEmail, createUser, getRecordCounts } from "../models/userModel.js";
 
 export const registerUser = async (req, res) => {
   const { name, email, password, role, city, cnic, shop_name } = req.body;
@@ -55,6 +55,32 @@ export const loginUser = async (req, res) => {
     const token = jwt.sign({ userId: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "7d" });
 
     res.json({ message: "Login successful", token: token, userId: user.id });
+    
+  } catch (error) {
+    console.error("Error logging in:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+export const states = async (req, res) => {
+
+  try {
+    // ✅ Check if user exists using model
+    res.json( await getRecordCounts());
+    // if (!user) {
+    //   return res.status(400).json({ message: "Invalid email or password" });
+    // }
+
+    // ✅ Compare passwords
+    // const validPassword = await bcrypt.compare(password, user.password);
+    // if (!validPassword) {
+    //   return res.status(400).json({ message: "Invalid email or password" });
+    // }
+
+    // ✅ Generate JWT Token
+    // const token = jwt.sign({ userId: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "7d" });
+
+    // res.json({ message: "Fetch Successfull", data: records});
     
   } catch (error) {
     console.error("Error logging in:", error);

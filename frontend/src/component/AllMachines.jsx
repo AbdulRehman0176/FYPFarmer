@@ -9,7 +9,7 @@ function AllMachines({ deleteEnabled, shouldReload }) {
 
   const fetchMachines = () => {
     api
-      .get("/machines")
+      .get("user/states")
       .then((response) => {
         // console.log("Machines -> ", response.data);
         
